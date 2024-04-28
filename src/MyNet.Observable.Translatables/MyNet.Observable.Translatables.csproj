@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This library is a versatile and lightweight class library designed to simplify the representation of translatable objects in .NET applications.</Description>
+    <PackageTags>My;Utilities;Translate;String</PackageTags>
+    <VersionPrefix>1.0.1</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MyNet.Humanizer" Version="1.0.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyNet.Observable\MyNet.Observable.csproj" />
+  </ItemGroup>
+
+</Project>

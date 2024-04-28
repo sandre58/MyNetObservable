@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This library is a powerful and versatile class library designed to simplify the calculation of statistics in .NET applications.</Description>
+    <PackageTags>My;Utilities;Statistics;Average;DynamicData;Observable</PackageTags>
+    <VersionPrefix>1.0.1</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicData" Version="8.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyNet.Observable\MyNet.Observable.csproj" />
+  </ItemGroup>
+
+</Project>
