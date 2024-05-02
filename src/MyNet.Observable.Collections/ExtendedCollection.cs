@@ -16,7 +16,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using DynamicData;
 using DynamicData.Binding;
-using My.DynamicData.Extensions;
+using MyNet.DynamicData.Extensions;
 using MyNet.Observable.Collections.Extensions;
 using MyNet.Observable.Collections.Filters;
 using MyNet.Observable.Collections.Providers;
