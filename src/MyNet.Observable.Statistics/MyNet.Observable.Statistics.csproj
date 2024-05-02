@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>This library is a powerful and versatile class library designed to simplify the calculation of statistics in .NET applications.</Description>
     <PackageTags>My;Utilities;Statistics;Average;DynamicData;Observable</PackageTags>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
