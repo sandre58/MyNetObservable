@@ -18,8 +18,9 @@ namespace MyNet.Observable.Validation
         /// <summary>
         /// Initializes a new instance of the <see cref="Rule"/> class.
         /// </summary>
-        /// <param name="propertyName">The name of the property this instance applies to.</param>
+        /// <param name="propertyAccessor">The name of the property this instance applies to.</param>
         /// <param name="error">The error message if the rules fails.</param>
+        /// <param name="severity"></param>
         protected ValidationRule(Expression<Func<TObject, TProperty>> propertyAccessor, Func<string> error, ValidationRuleSeverity severity = ValidationRuleSeverity.Error)
         {
             Severity = severity;

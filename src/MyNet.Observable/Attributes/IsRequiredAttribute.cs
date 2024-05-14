@@ -17,7 +17,6 @@ namespace MyNet.Observable.Attributes
         /// <summary>
         /// Initialise a new instance of <see cref="IsRequiredAttribute"/>
         /// </summary>
-        /// <param name="propertyName"></param>
         public IsRequiredAttribute()
         {
             ErrorMessageResourceName = nameof(ValidationResources.FieldXIsRequiredError);
