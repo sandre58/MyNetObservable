@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>This library is a powerful and flexible class library designed to simplify the management of collections in .NET applications.</Description>
     <PackageTags>MyNet;Observable;Collections;List</PackageTags>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
     </PackageReference>
     <PackageReference Include="DynamicData" Version="8.4.1" />
     <PackageReference Include="MyNet.DynamicData.Extensions" Version="2.0.0" />
-    <PackageReference Include="MyNet.Utilities" Version="1.0.1" />
+    <PackageReference Include="MyNet.Utilities" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
