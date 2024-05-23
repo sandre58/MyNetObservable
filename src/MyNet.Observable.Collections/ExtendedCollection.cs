@@ -23,6 +23,7 @@ using MyNet.Observable.Collections.Providers;
 using MyNet.Observable.Collections.Sorting;
 using MyNet.Utilities;
 using MyNet.Utilities.Deferring;
+using MyNet.Utilities.Providers;
 
 namespace MyNet.Observable.Collections
 {
@@ -42,6 +43,7 @@ namespace MyNet.Observable.Collections
         private readonly SourceList<T> _source;
         private readonly SortingComparer<T> _sortComparer;
         private readonly bool _readOnly;
+        private readonly Action? _reload;
 
         public FiltersCollection Filters { get; } = [];
 
@@ -53,17 +55,16 @@ namespace MyNet.Observable.Collections
 
         public int SourceCount => _source.Count;
 
-        public ExtendedCollection(ICollection<T> source, IScheduler? scheduler = null)
-            : this(new SourceList<T>(), source.IsReadOnly, scheduler) => AddRange(source);
+        public ExtendedCollection(IScheduler? scheduler = null) : this(new SourceList<T>(), false, scheduler) { }
 
-        public ExtendedCollection(ISourceProvider<T> source, IScheduler? scheduler = null)
-            : this(source.Connect(), scheduler) { }
+        public ExtendedCollection(ICollection<T> source, IScheduler? scheduler = null) : this(new SourceList<T>(), source.IsReadOnly, scheduler) => AddRange(source);
 
-        public ExtendedCollection(IObservable<IChangeSet<T>> source, IScheduler? scheduler = null)
-            : this(new SourceList<T>(source), true, scheduler) { }
+        public ExtendedCollection(IItemsProvider<T> source, IScheduler? scheduler = null) : this(new ItemsSourceProvider<T>(source), scheduler) { }
 
-        public ExtendedCollection(IScheduler? scheduler = null)
-            : this(new SourceList<T>(), false, scheduler) { }
+        public ExtendedCollection(ISourceProvider<T> source, IScheduler? scheduler = null) : this(source.Connect(), scheduler)
+            => _reload = () => source.Reload();
+
+        public ExtendedCollection(IObservable<IChangeSet<T>> source, IScheduler? scheduler = null) : this(new SourceList<T>(source), true, scheduler) { }
 
         protected ExtendedCollection(
             SourceList<T> sourceList,
@@ -138,6 +139,8 @@ namespace MyNet.Observable.Collections
         public void RefreshSorting() => _applySortDeferrer.Execute();
 
         public void RefreshFilter() => _applyFilterDeferrer.Execute();
+
+        public void Reload() => _reload?.Invoke();
 
         private Func<T, bool> GetFilterFunc(IList<CompositeFilter> filters) => x => filters.Count == 0 || filters.Match(x);
 
