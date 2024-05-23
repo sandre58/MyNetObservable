@@ -9,16 +9,16 @@ using MyNet.Utilities;
 
 namespace MyNet.Observable.Collections.Providers
 {
-    internal class ItemChangedSourceProvider<T, TItem> : SourceProvider<T>
+    internal class SubjectSourceProvider<T, TItem> : ObservableSourceProvider<T>
         where T : IIdentifiable<Guid>, INotifyPropertyChanged
     {
         private readonly IDisposable _disposable;
 
-        public ItemChangedSourceProvider(Subject<TItem?> itemChanged, Func<TItem, IObservable<IChangeSet<T, Guid>>> getObservable)
-            => _disposable = itemChanged.Subscribe(x =>
+        public SubjectSourceProvider(Subject<TItem?> subject, Func<TItem, IObservable<IChangeSet<T, Guid>>> provideNewObservableSource)
+            => _disposable = subject.Subscribe(x =>
             {
                 if (x is not null)
-                    SetSource(getObservable.Invoke(x));
+                    SetSource(provideNewObservableSource.Invoke(x));
                 else
                     ClearSource();
             });
