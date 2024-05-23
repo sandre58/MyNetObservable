@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.0.0] - 2024-05-23
+### :boom: BREAKING CHANGES
+- due to [`2cb42f0`](https://github.com/sandre58/MyNetObservable/commit/2cb42f094e931d04ec836398185ff26e8adf5a1e) - change name of ISourceProvider implementations *(commit by [@sandre58](https://github.com/sandre58))*:
+
+  change name of ISourceProvider implementations
+
+
+### :recycle: Refactors
+- [`2cb42f0`](https://github.com/sandre58/MyNetObservable/commit/2cb42f094e931d04ec836398185ff26e8adf5a1e) - change name of ISourceProvider implementations *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v1.2.0] - 2024-05-14
 ### :bug: Bug Fixes
 - [`4035f1f`](https://github.com/sandre58/MyNetObservable/commit/4035f1f76f61f2da7680466d17c9dcda5c6bc97f) - add Fody dependencies *(commit by [@sandre58](https://github.com/sandre58))*
@@ -16,3 +27,4 @@
 ## [v1.0.1] - 2024-04-27
 - Initialize repository
 [v1.2.0]: https://github.com/sandre58/MyNetObservable/compare/v1.1.0...v1.2.0
+[v2.0.0]: https://github.com/sandre58/MyNetObservable/compare/v1.2.0...v2.0.0
