@@ -11,6 +11,7 @@ using DynamicData.Binding;
 using MyNet.DynamicData.Extensions;
 using MyNet.Observable.Collections.Providers;
 using MyNet.Utilities;
+using MyNet.Utilities.Providers;
 
 namespace MyNet.Observable.Collections
 {
@@ -31,6 +32,9 @@ namespace MyNet.Observable.Collections
 
         public ExtendedWrapperCollection(ICollection<T> source, IScheduler? scheduler = null, Func<T, TWrapper>? createWrapper = null)
             : this(new SourceList<T>(), source.IsReadOnly, scheduler, createWrapper) => AddRange(source);
+
+        public ExtendedWrapperCollection(IItemsProvider<T> source, IScheduler? scheduler = null, Func<T, TWrapper>? createWrapper = null)
+            : this(new ItemsSourceProvider<T>(source), scheduler) { }
 
         public ExtendedWrapperCollection(ISourceProvider<T> source, IScheduler? scheduler = null, Func<T, TWrapper>? createWrapper = null)
             : this(source.Connect(), scheduler, createWrapper) { }
