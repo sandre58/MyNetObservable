@@ -19,15 +19,16 @@ namespace MyNet.Observable.Collections.Providers
 
         public ReadOnlyObservableCollection<T> Source { get; }
 
-        public ItemsSourceProvider(IEnumerable<T> source) : this(new ItemsProvider<T>(source)) { }
+        public ItemsSourceProvider(IEnumerable<T> source, bool loadItems = true) : this(new ItemsProvider<T>(source), loadItems) { }
 
-        public ItemsSourceProvider(IItemsProvider<T> provider)
+        public ItemsSourceProvider(IItemsProvider<T> provider, bool loadItems = true)
         {
             Source = new(_source);
             _observable = Source.ToObservableChangeSet();
             _provider = provider;
 
-            _source.Load(_provider.ProvideItems());
+            if (loadItems)
+                _source.Load(_provider.ProvideItems());
         }
 
         public IObservable<IChangeSet<T>> Connect() => _observable;

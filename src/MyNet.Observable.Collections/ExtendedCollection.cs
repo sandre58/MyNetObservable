@@ -59,7 +59,7 @@ namespace MyNet.Observable.Collections
         public ExtendedCollection(ICollection<T> source, IScheduler? scheduler = null) : this(new SourceList<T>(), source.IsReadOnly, scheduler)
             => AddRange(source);
 
-        public ExtendedCollection(IItemsProvider<T> source, IScheduler? scheduler = null) : this(new ItemsSourceProvider<T>(source), scheduler) { }
+        public ExtendedCollection(IItemsProvider<T> source, bool loadItems = true, IScheduler? scheduler = null) : this(new ItemsSourceProvider<T>(source, loadItems), scheduler) { }
 
         public ExtendedCollection(ISourceProvider<T> source, IScheduler? scheduler = null) : this(source.Connect(), scheduler) { }
 
