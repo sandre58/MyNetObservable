@@ -36,8 +36,6 @@ namespace MyNet.Observable.Collections.Providers
 
         public IObservable<IChangeSet<T>> Connect() => _observable;
 
-        public void Reload() { }
-
         private void SetSource(IObservable<IChangeSet<T>> source)
         {
             ClearSource();

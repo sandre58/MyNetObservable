@@ -16,8 +16,6 @@ namespace MyNet.Observable.Collections.Providers
         IObservable<IChangeSet<T>> Connect();
 
         IEnumerable<T> IItemsProvider<T>.ProvideItems() => Source;
-
-        void Reload();
     }
 
     public interface ISourceProvider<T, TKey> : ISourceProvider<T> where T : notnull where TKey : notnull

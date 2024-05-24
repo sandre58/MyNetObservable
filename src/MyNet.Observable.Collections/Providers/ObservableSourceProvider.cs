@@ -32,8 +32,6 @@ namespace MyNet.Observable.Collections.Providers
 
         public IObservable<IChangeSet<T>> Connect() => _observable;
 
-        public void Reload() { }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposedValue)

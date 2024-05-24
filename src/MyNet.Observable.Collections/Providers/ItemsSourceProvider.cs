@@ -26,10 +26,12 @@ namespace MyNet.Observable.Collections.Providers
             Source = new(_source);
             _observable = Source.ToObservableChangeSet();
             _provider = provider;
+
+            _source.Load(_provider.ProvideItems());
         }
 
         public IObservable<IChangeSet<T>> Connect() => _observable;
 
-        public void Reload() => _source.Load(_provider.ProvideItems());
+        public virtual void Reload() => _source.Load(_provider.ProvideItems());
     }
 }
