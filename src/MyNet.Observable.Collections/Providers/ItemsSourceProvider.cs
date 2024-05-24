@@ -32,6 +32,8 @@ namespace MyNet.Observable.Collections.Providers
 
         public IObservable<IChangeSet<T>> Connect() => _observable;
 
+        public void Clear() => _source.Clear();
+
         public virtual void Reload() => _source.Load(_provider.ProvideItems());
     }
 }

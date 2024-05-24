@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>This library is a powerful and flexible class library designed to simplify the management of collections in .NET applications.</Description>
     <PackageTags>MyNet;Observable;Collections;List</PackageTags>
-    <VersionPrefix>2.1.0.2</VersionPrefix>
+    <VersionPrefix>2.1.0.3</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
