@@ -2,69 +2,35 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DynamicData;
 using DynamicData.Binding;
 using MyNet.Utilities;
-using MyNet.Utilities.Providers;
 
 namespace MyNet.Observable.Collections.Providers
 {
-    public class ObservableSourceProvider<T> : ISourceProvider<T>, IDisposable, IItemsProvider<T>
+    public class ObservableSourceProvider<T> : ISourceProvider<T>, IDisposable
         where T : notnull
     {
         private bool _disposedValue;
         private readonly ObservableCollectionExtended<T> _source = [];
         private readonly IObservable<IChangeSet<T>> _observable;
+        private readonly IDisposable? _sourceSubscription;
 
-        protected IDisposable? SourceSubscription { get; set; }
+        public ObservableSourceProvider(ObservableCollection<T> source) : this(source.ToObservableChangeSet()) { }
 
-        public ReadOnlyObservableCollection<T> Source { get; }
+        public ObservableSourceProvider(ReadOnlyObservableCollection<T> source) : this(source.ToObservableChangeSet()) { }
 
-        public ObservableSourceProvider()
+        public ObservableSourceProvider(IObservable<IChangeSet<T>> source)
         {
             Source = new(_source);
             _observable = Source.ToObservableChangeSet();
+            _sourceSubscription = source.Bind(_source).Subscribe();
         }
 
-        public ObservableSourceProvider(IEnumerable<T> source) : this() => SetSource(source);
-
-        public ObservableSourceProvider(ObservableCollection<T> source) : this() => SetSource(source.ToObservableChangeSet());
-
-        public ObservableSourceProvider(ReadOnlyObservableCollection<T> source) : this() => SetSource(source.ToObservableChangeSet());
-
-        public ObservableSourceProvider(IObservable<IChangeSet<T>> source) : this() => SetSource(source);
+        public ReadOnlyObservableCollection<T> Source { get; }
 
         public IObservable<IChangeSet<T>> Connect() => _observable;
-
-        IEnumerable<T> IItemsProvider<T>.ProvideItems() => Source;
-
-        protected void ClearSource()
-        {
-            SourceSubscription?.Dispose();
-
-            _source.Clear();
-        }
-
-        protected void SetSource(IEnumerable<T> source)
-        {
-            ClearSource();
-            _source.Load(source);
-        }
-
-        protected void SetSource(IObservable<IChangeSet<T>> source)
-        {
-            ClearSource();
-            SourceSubscription = source.Bind(_source).Subscribe();
-        }
-
-        protected void SetSource<TKey>(IObservable<IChangeSet<T, TKey>> source)
-            where TKey : notnull
-        {
-            ClearSource();
-            SourceSubscription = source.Bind(_source).Subscribe();
-        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -72,7 +38,7 @@ namespace MyNet.Observable.Collections.Providers
             {
                 if (disposing)
                 {
-                    SourceSubscription?.Dispose();
+                    _sourceSubscription?.Dispose();
                 }
 
                 _disposedValue = true;
@@ -86,21 +52,17 @@ namespace MyNet.Observable.Collections.Providers
         }
     }
 
-    public class SourceProvider<T, TKey> : ObservableSourceProvider<T>
+    public class ObservableSourceProvider<T, TKey> : ObservableSourceProvider<T>, ISourceProvider<T, TKey>
     where T : IIdentifiable<TKey>
         where TKey : notnull
     {
         private readonly IObservable<IChangeSet<T, TKey>> _observableById;
 
-        public SourceProvider() => _observableById = Source.ToObservableChangeSet(x => x.Id);
+        public ObservableSourceProvider(ObservableCollection<T> source) : base(source) => _observableById = Source.ToObservableChangeSet(x => x.Id);
 
-        public SourceProvider(IEnumerable<T> source) : this() => SetSource(source);
+        public ObservableSourceProvider(ReadOnlyObservableCollection<T> source) : base(source) => _observableById = Source.ToObservableChangeSet(x => x.Id);
 
-        public SourceProvider(ObservableCollection<T> source) : this() => SetSource(source.ToObservableChangeSet());
-
-        public SourceProvider(ReadOnlyObservableCollection<T> source) : this() => SetSource(source.ToObservableChangeSet());
-
-        public SourceProvider(IObservable<IChangeSet<T>> source) : this() => SetSource(source);
+        public ObservableSourceProvider(IObservable<IChangeSet<T>> source) : base(source) => _observableById = Source.ToObservableChangeSet(x => x.Id);
 
         public IObservable<IChangeSet<T, TKey>> ConnectById() => _observableById;
     }
