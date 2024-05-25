@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.0.0] - 2024-05-25
+### :boom: BREAKING CHANGES
+- due to [`7c062f8`](https://github.com/sandre58/MyNetObservable/commit/7c062f8ffc442870056bb04a057c138dfdfe425d) - Improve SourceProviders *(PR [#1](https://github.com/sandre58/MyNetObservable/pull/1) by [@sandre58](https://github.com/sandre58))*:
+
+  Improve SourceProviders (#1)
+
+
+### :sparkles: New Features
+- [`7c062f8`](https://github.com/sandre58/MyNetObservable/commit/7c062f8ffc442870056bb04a057c138dfdfe425d) - Improve SourceProviders *(PR [#1](https://github.com/sandre58/MyNetObservable/pull/1) by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v2.0.0] - 2024-05-23
 ### :boom: BREAKING CHANGES
 - due to [`2cb42f0`](https://github.com/sandre58/MyNetObservable/commit/2cb42f094e931d04ec836398185ff26e8adf5a1e) - change name of ISourceProvider implementations *(commit by [@sandre58](https://github.com/sandre58))*:
@@ -28,3 +39,4 @@
 - Initialize repository
 [v1.2.0]: https://github.com/sandre58/MyNetObservable/compare/v1.1.0...v1.2.0
 [v2.0.0]: https://github.com/sandre58/MyNetObservable/compare/v1.2.0...v2.0.0
+[v3.0.0]: https://github.com/sandre58/MyNetObservable/compare/v2.0.0...v3.0.0
