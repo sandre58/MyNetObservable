@@ -9,7 +9,7 @@ using DynamicData.Binding;
 
 namespace MyNet.Observable.Collections.Providers
 {
-    internal class ItemChangedSourceProvider<T, TItem> : ISourceProvider<T>, IDisposable
+    public class ItemChangedSourceProvider<T, TItem> : ISourceProvider<T>, IDisposable
         where T : notnull
     {
         private bool _disposedValue;
