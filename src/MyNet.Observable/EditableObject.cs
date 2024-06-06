@@ -306,7 +306,7 @@ namespace MyNet.Observable
         /// <summary>
         /// Gets a value indicates if the entity has been modified.
         /// </summary>
-        public bool IsModified()
+        public virtual bool IsModified()
         {
             if (_isModified) return true;
 
@@ -327,7 +327,7 @@ namespace MyNet.Observable
         /// <summary>
         /// Reset IsModified value.
         /// </summary>
-        public void ResetIsModified()
+        public virtual void ResetIsModified()
         {
             _isModified = false;
             var propertiesToChecked = GetType().GetPublicProperties().Where(x => x.CanSetIsModified(this)).ToList();
