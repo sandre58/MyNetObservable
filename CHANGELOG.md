@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.3.0] - 2024-06-13
+### :boom: BREAKING CHANGES
+- due to [`6853f1a`](https://github.com/sandre58/MyNetObservable/commit/6853f1a4c4877a3cac47bbbda00afd0adf70c7cf) - remove collections *(commit by [@sandre58](https://github.com/sandre58))*:
+
+  remove collections
+
+
+### :sparkles: New Features
+- [`6853f1a`](https://github.com/sandre58/MyNetObservable/commit/6853f1a4c4877a3cac47bbbda00afd0adf70c7cf) - remove collections *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v3.2.0] - 2024-06-13
 ### :sparkles: New Features
 - [`c97d34b`](https://github.com/sandre58/MyNetObservable/commit/c97d34b744485b0234818e87c8eaa0ab3c0dc48f) - add refreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*
@@ -52,3 +63,4 @@
 [v3.0.0]: https://github.com/sandre58/MyNetObservable/compare/v2.0.0...v3.0.0
 [v3.1.0]: https://github.com/sandre58/MyNetObservable/compare/v3.0.0...v3.1.0
 [v3.2.0]: https://github.com/sandre58/MyNetObservable/compare/v3.1.0...v3.2.0
+[v3.3.0]: https://github.com/sandre58/MyNetObservable/compare/v3.2.0...v3.3.0
