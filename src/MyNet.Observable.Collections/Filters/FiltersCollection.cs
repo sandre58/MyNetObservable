@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using MyNet.Utilities.Comparaison;
@@ -11,7 +12,7 @@ using PropertyChanged;
 
 namespace MyNet.Observable.Collections.Filters
 {
-    public class FiltersCollection : ThreadSafeObservableCollection<CompositeFilter>
+    public class FiltersCollection : ObservableCollection<CompositeFilter>
     {
         private readonly Deferrer _filtersChangedDeferrer;
 
@@ -49,7 +50,7 @@ namespace MyNet.Observable.Collections.Filters
             }
         }
 
-        public new FiltersCollection AddRange(IEnumerable<CompositeFilter> filters)
+        public FiltersCollection AddRange(IEnumerable<CompositeFilter> filters)
         {
             using (_filtersChangedDeferrer.Defer())
                 filters.ToList().ForEach(Add);
