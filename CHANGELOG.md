@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.2.0] - 2024-06-13
+### :sparkles: New Features
+- [`c97d34b`](https://github.com/sandre58/MyNetObservable/commit/c97d34b744485b0234818e87c8eaa0ab3c0dc48f) - add refreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v3.1.0] - 2024-06-06
 ### :sparkles: New Features
 - [`5c2cdc7`](https://github.com/sandre58/MyNetObservable/commit/5c2cdc7c55a159c140abea8de4332c59add6b015) - Make IsModified method "virtual" *(commit by [@sandre58](https://github.com/sandre58))*
@@ -46,3 +51,4 @@
 [v2.0.0]: https://github.com/sandre58/MyNetObservable/compare/v1.2.0...v2.0.0
 [v3.0.0]: https://github.com/sandre58/MyNetObservable/compare/v2.0.0...v3.0.0
 [v3.1.0]: https://github.com/sandre58/MyNetObservable/compare/v3.0.0...v3.1.0
+[v3.2.0]: https://github.com/sandre58/MyNetObservable/compare/v3.1.0...v3.2.0
