@@ -1,5 +1,16 @@
 # Changelog
 
+## [v5.0.0] - 2024-06-20
+### :boom: BREAKING CHANGES
+- due to [`2e6829a`](https://github.com/sandre58/MyNetObservable/commit/2e6829a753c4a7a5a9b7e7777bf09c468f723b59) - add suspend and unsubscribe features in RefreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*:
+
+  `Subscribe` method take subscriber in first parameter
+
+
+### :sparkles: New Features
+- [`2e6829a`](https://github.com/sandre58/MyNetObservable/commit/2e6829a753c4a7a5a9b7e7777bf09c468f723b59) - add suspend and unsubscribe features in RefreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v4.0.0] - 2024-06-13
 ### :boom: BREAKING CHANGES
 - due to [`6853f1a`](https://github.com/sandre58/MyNetObservable/commit/6853f1a4c4877a3cac47bbbda00afd0adf70c7cf) - remove collections *(commit by [@sandre58](https://github.com/sandre58))*:
@@ -65,3 +76,4 @@
 [v3.2.0]: https://github.com/sandre58/MyNetObservable/compare/v3.1.0...v3.2.0
 [v3.3.0]: https://github.com/sandre58/MyNetObservable/compare/v3.2.0...v3.3.0
 [v4.0.0]: https://github.com/sandre58/MyNetObservable/compare/v3.2.0...v4.0.0
+[v5.0.0]: https://github.com/sandre58/MyNetObservable/compare/v4.0.0...v5.0.0
