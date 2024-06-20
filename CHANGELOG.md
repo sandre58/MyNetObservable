@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.0.1] - 2024-06-20
+### :bug: Bug Fixes
+- [`ae7a49c`](https://github.com/sandre58/MyNetObservable/commit/ae7a49c2fb4903233d39b51e92251ca4133cbbc7) - fix key in cache in RefreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v5.0.0] - 2024-06-20
 ### :boom: BREAKING CHANGES
 - due to [`2e6829a`](https://github.com/sandre58/MyNetObservable/commit/2e6829a753c4a7a5a9b7e7777bf09c468f723b59) - add suspend and unsubscribe features in RefreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*:
@@ -77,3 +82,4 @@
 [v3.3.0]: https://github.com/sandre58/MyNetObservable/compare/v3.2.0...v3.3.0
 [v4.0.0]: https://github.com/sandre58/MyNetObservable/compare/v3.2.0...v4.0.0
 [v5.0.0]: https://github.com/sandre58/MyNetObservable/compare/v4.0.0...v5.0.0
+[v5.0.1]: https://github.com/sandre58/MyNetObservable/compare/v5.0.0...v5.0.1
