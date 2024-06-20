@@ -39,7 +39,7 @@ namespace MyNet.Observable.Deferrers
             if (_disposables.TryGetValue(obj, out var value))
                 value.Add(disposable);
             else
-                _disposables.Add(this, [disposable]);
+                _disposables.Add(obj, [disposable]);
         }
 
         public virtual void Unsubscribe(object obj)
