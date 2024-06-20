@@ -2,10 +2,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using MyNet.Utilities;
 using MyNet.Utilities.Deferring;
+using MyNet.Utilities.Suspending;
 
 namespace MyNet.Observable.Deferrers
 {
@@ -13,25 +16,50 @@ namespace MyNet.Observable.Deferrers
     {
         private readonly Subject<bool> _refreshSubject = new();
         private readonly Deferrer _deferrer;
+        private readonly Suspender _suspender = new();
         private bool _disposedValue;
-        private readonly CompositeDisposable _disposables = [];
+        private readonly Dictionary<object, CompositeDisposable> _disposables = [];
 
-        public RefreshDeferrer() => _deferrer = new(() => _refreshSubject.OnNext(true));
+        public RefreshDeferrer() => _deferrer = new(() =>
+        {
+            if (_suspender.IsSuspended) return;
 
-        public void Subscribe(Action action, int throttle = 0)
+            _refreshSubject.OnNext(true);
+        });
+
+        public virtual void Subscribe(object obj, Action action, int throttle = 0)
         {
             IObservable<bool> obs = _refreshSubject;
 
             if (throttle > 0)
                 obs = _refreshSubject.Throttle(TimeSpan.FromMilliseconds(throttle));
-            _disposables.Add(obs.Subscribe(_ => action()));
+
+            var disposable = obs.Subscribe(_ => action());
+
+            if (_disposables.TryGetValue(obj, out var value))
+                value.Add(disposable);
+            else
+                _disposables.Add(this, [disposable]);
         }
 
-        public IDisposable Defer() => _deferrer.Defer();
+        public virtual void Unsubscribe(object obj)
+        {
+            if (_disposables.TryGetValue(obj, out var value))
+            {
+                value.Dispose();
+                _disposables.Remove(obj);
+            }
+        }
 
-        public void AskRefresh() => _deferrer.DeferOrExecute();
+        public virtual IDisposable Defer() => _deferrer.Defer();
 
-        public bool IsDeferred() => _deferrer.IsDeferred;
+        public virtual IDisposable Suspend() => _suspender.Suspend();
+
+        public virtual void AskRefresh() => _deferrer.DeferOrExecute();
+
+        public virtual bool IsDeferred() => _deferrer.IsDeferred;
+
+        public virtual bool IsSuspended() => _suspender.IsSuspended;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -39,7 +67,7 @@ namespace MyNet.Observable.Deferrers
             {
                 if (disposing)
                 {
-                    _disposables.Dispose();
+                    _disposables.Values.ForEach(x => x.Dispose());
                 }
 
                 _disposedValue = true;
