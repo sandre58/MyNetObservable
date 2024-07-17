@@ -40,7 +40,11 @@ namespace MyNet.Observable
             observableCollections.ForEach(x => x.CollectionChanged += CollectionChanged);
         }
 
-        private void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => SetIsModified();
+        private void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!IsModifiedSuspender.IsSuspended)
+                SetIsModified();
+        }
 
         [CanBeValidated(false)]
         [CanSetIsModified(false)]
