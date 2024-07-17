@@ -1,10 +1,5 @@
 # Changelog
 
-## [v5.1.0] - 2024-07-17
-### :sparkles: New Features
-- [`993a2ac`](https://github.com/sandre58/MyNetObservable/commit/993a2ac8bf8397ad01da9fa40ff5786b824892a3) - add SetIsModified() *(commit by [@sandre58](https://github.com/sandre58))*
-
-
 ## [v5.0.1] - 2024-06-20
 ### :bug: Bug Fixes
 - [`ae7a49c`](https://github.com/sandre58/MyNetObservable/commit/ae7a49c2fb4903233d39b51e92251ca4133cbbc7) - fix key in cache in RefreshDeferrer *(commit by [@sandre58](https://github.com/sandre58))*
