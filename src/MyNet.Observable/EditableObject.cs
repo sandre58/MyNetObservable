@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using MyNet.Observable.Attributes;
@@ -39,7 +40,7 @@ namespace MyNet.Observable
             observableCollections.ForEach(x => x.CollectionChanged += CollectionChanged);
         }
 
-        private void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => _isModified = true;
+        private void CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => SetIsModified();
 
         [CanBeValidated(false)]
         [CanSetIsModified(false)]
@@ -288,7 +289,7 @@ namespace MyNet.Observable
             // Modification
             if (!IsModifiedSuspender.IsSuspended && prop.CanSetIsModified(this))
             {
-                _isModified = true;
+                SetIsModified();
                 OnPropertyIsModified(propertyName, before, after);
             }
 
@@ -340,6 +341,8 @@ namespace MyNet.Observable
                 .SelectMany(x => x?.OfType<IModifiable>() ?? [])
                 .ToList().ForEach(x => x.ResetIsModified());
         }
+
+        protected virtual void SetIsModified() => _isModified = true;
 
         #endregion IModifiable
 
