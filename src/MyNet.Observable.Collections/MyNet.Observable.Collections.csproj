@@ -15,7 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="DynamicData" Version="9.0.1" />
-    <PackageReference Include="MyNet.DynamicData.Extensions" Version="2.0.0" />
+    <PackageReference Include="MyNet.DynamicData.Extensions" Version="2.1.0" />
     <PackageReference Include="MyNet.Utilities" Version="3.5.0" />
   </ItemGroup>
 
