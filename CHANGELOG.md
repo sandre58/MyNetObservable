@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.2.0] - 2024-07-21
+### :wrench: Chores
+- [`6b0f5e6`](https://github.com/sandre58/MyNetObservable/commit/6b0f5e656974f81394a7541c824dedb6cb31537f) - update packages *(commit by [@sandre58](https://github.com/sandre58))*
+
+
 ## [v5.1.0] - 2024-07-17
 ### :sparkles: New Features
 - [`993a2ac`](https://github.com/sandre58/MyNetObservable/commit/993a2ac8bf8397ad01da9fa40ff5786b824892a3) - add SetIsModified() *(commit by [@sandre58](https://github.com/sandre58))*
@@ -90,3 +95,4 @@
 [v5.0.1]: https://github.com/sandre58/MyNetObservable/compare/v5.0.0...v5.0.1
 [v5.1.0]: https://github.com/sandre58/MyNetObservable/compare/v5.0.1...v5.1.0
 [v5.1.0]: https://github.com/sandre58/MyNetObservable/compare/v5.0.1...v5.1.0
+[v5.2.0]: https://github.com/sandre58/MyNetObservable/compare/v5.1.0...v5.2.0
