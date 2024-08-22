@@ -11,6 +11,7 @@ tools/FAKE/
 build-log.xml
 Nuget.key
 TestResult.xml
+nuget.config
 
 # Build results
 [Bb]uild/
@@ -138,6 +139,9 @@ BundleArtifacts/
 # editors
 .idea
 .vscode
+
+# fody
+FodyWeavers.xsd
 
 # Approval tests
 *.received.*

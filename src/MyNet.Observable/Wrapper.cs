@@ -7,7 +7,7 @@ using MyNet.Utilities;
 
 namespace MyNet.Observable
 {
-    public class Wrapper<T> : ObservableObject, ICloneable, ISettable, IIdentifiable<Guid>, IWrapper<T>
+    public class Wrapper<T> : LocalizableObject, ICloneable, ISettable, IIdentifiable<Guid>, IWrapper<T>
     {
         public Guid Id { get; } = Guid.NewGuid();
 

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using MyNet.Observable.Attributes;
@@ -15,17 +14,12 @@ using MyNet.Observable.Validation;
 using MyNet.Utilities;
 using MyNet.Utilities.Suspending;
 using PropertyChanged;
-using IEditableObject = MyNet.Observable.IEditableObject;
 
 namespace MyNet.Observable
 {
-    /// <inheritdoc cref="ObservableObject" />
-    /// <summary>
-    /// The model base.
-    /// </summary>
     [CanBeValidatedForDeclaredClassOnly(false)]
     [CanSetIsModifiedAttributeForDeclaredClassOnly(false)]
-    public abstract class EditableObject : ObservableObject, IEditableObject
+    public abstract class EditableObject : LocalizableObject, IEditableObject
     {
         #region Fields
 
