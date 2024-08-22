@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>This library is a versatile and lightweight class library designed to simplify the representation of translatable objects in .NET applications.</Description>
     <PackageTags>My;Utilities;Translate;String</PackageTags>
-    <VersionPrefix>5.2.0</VersionPrefix>
+    <VersionPrefix>5.3.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
