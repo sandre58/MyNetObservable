@@ -4,6 +4,7 @@
     <Description>This library is a versatile and lightweight class library designed to simplify the representation of translatable objects in .NET applications.</Description>
     <PackageTags>My;Utilities;Translate;String</PackageTags>
     <VersionPrefix>5.3.0</VersionPrefix>
+    <Version>6.0.0-alpha.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
