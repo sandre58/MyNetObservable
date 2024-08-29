@@ -2,23 +2,16 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyNet.Observable.Attributes;
-using MyNet.Utilities.Deferring;
-using MyNet.Utilities.Localization;
-using MyNet.Utilities;
-using PropertyChanged;
 using MyNet.Observable.Resources;
+using MyNet.Utilities;
+using MyNet.Utilities.Deferring;
 using MyNet.Utilities.Extensions;
+using MyNet.Utilities.Localization;
+using PropertyChanged;
 
 namespace MyNet.Observable
 {
-
-
     public class EditableDateTime : EditableObject
     {
         private TimeZoneInfo _currentTimeZone = GlobalizationService.Current.TimeZone;
@@ -30,14 +23,14 @@ namespace MyNet.Observable
 
             if (isRequired)
             {
-                ValidationRules.Add<EditableDateTime, DateTime?>(x => x.Date, () => ValidationResources.FieldXIsRequiredError.FormatWith(nameof(Date).Translate()), x => x is not null);
-                ValidationRules.Add<EditableDateTime, TimeSpan?>(x => x.Time, () => ValidationResources.FieldXIsRequiredError.FormatWith(nameof(Time).Translate()), x => x is not null);
+                ValidationRules.Add<EditableDateTime, DateOnly?>(x => x.Date, () => ValidationResources.FieldXIsRequiredError.FormatWith(nameof(Date).Translate()), x => x is not null);
+                ValidationRules.Add<EditableDateTime, TimeOnly?>(x => x.Time, () => ValidationResources.FieldXIsRequiredError.FormatWith(nameof(Time).Translate()), x => x is not null);
             }
         }
 
-        public DateTime? Date { get; set; }
+        public DateOnly? Date { get; set; }
 
-        public TimeSpan? Time { get; set; }
+        public TimeOnly? Time { get; set; }
 
         [CanSetIsModified(false)]
         [CanBeValidated(false)]
@@ -46,7 +39,7 @@ namespace MyNet.Observable
 
         [CanSetIsModified(false)]
         [CanBeValidated(false)]
-        public DateTime? DateTime => Date.HasValue && Time.HasValue ? Date.Value.SetTime(Time.Value) : null;
+        public DateTime? DateTime => Date.HasValue && Time.HasValue ? Date.Value.At(Time.Value) : null;
 
         public DateTime? ToUtc() => DateTime.HasValue ? GlobalizationService.Current.ConvertToUtc(DateTime.Value) : null;
 
@@ -64,8 +57,8 @@ namespace MyNet.Observable
 
             using (_dateTimeChangedDeferrer.Defer())
             {
-                Date = date.Date;
-                Time = date.TimeOfDay;
+                Date = date.Date.ToDate();
+                Time = date.ToTime();
             }
         }
 
@@ -88,8 +81,8 @@ namespace MyNet.Observable
                 var date = TimeZoneInfo.ConvertTime(DateTime.Value, _currentTimeZone, GlobalizationService.Current.TimeZone);
                 using (_dateTimeChangedDeferrer.Defer())
                 {
-                    Date = date.Date;
-                    Time = date.TimeOfDay;
+                    Date = date.ToDate();
+                    Time = date.ToTime();
                 }
             }
             _currentTimeZone = GlobalizationService.Current.TimeZone;
@@ -99,6 +92,6 @@ namespace MyNet.Observable
 
         protected virtual void OnTimeChanged() => _dateTimeChangedDeferrer.IsDeferred.IfFalse(() => RaisePropertyChanged(nameof(DateTime)));
 
-        public override string? ToString() => Date?.SetTime(Time ?? TimeSpan.Zero).ToString();
+        public override string? ToString() => Date?.At(Time ?? TimeOnly.MinValue).ToString();
     }
 }

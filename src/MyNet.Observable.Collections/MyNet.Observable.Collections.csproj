@@ -17,7 +17,7 @@
     </PackageReference>
     <PackageReference Include="DynamicData" Version="9.0.4" />
     <PackageReference Include="MyNet.DynamicData.Extensions" Version="2.2.0-alpha.2" />
-    <PackageReference Include="MyNet.Utilities" Version="4.1.0-alpha.20" />
+    <PackageReference Include="MyNet.Utilities" Version="4.1.0-alpha.29" />
   </ItemGroup>
 
   <ItemGroup>
