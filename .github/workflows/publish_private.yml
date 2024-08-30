@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest
     outputs:
       full_version: ${{ steps.gitversion.outputs.SemVer }}
-      suffix_label: ${{ steps.gitversion.outputs.PreReleaseLabel }}
+      suffix_label: ${{ steps.gitversion.outputs.PreReleaseTag }}
 
     steps:
 
