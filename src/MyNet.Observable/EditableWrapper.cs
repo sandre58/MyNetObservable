@@ -85,6 +85,5 @@ namespace MyNet.Observable
 
             base.Cleanup();
         }
-
     }
 }
