@@ -40,6 +40,8 @@ namespace MyNet.Observable.Deferrers
         }
         public virtual bool IsRunning() => _task.IsRunning;
 
+        public virtual void Cancel() => _task.Cancel();
+
         public virtual IDisposable Defer() => _refreshDeferrer.Defer();
 
         public virtual IDisposable Suspend() => _refreshDeferrer.Suspend();
