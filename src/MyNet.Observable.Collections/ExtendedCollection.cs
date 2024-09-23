@@ -105,7 +105,7 @@ namespace MyNet.Observable.Collections
 
             _observable = _items.ToObservableChangeSet();
 
-            Refresh();
+            RefreshFilter();
         }
 
         protected IObservable<IChangeSet<T>> ConnectSortedSource() => _observableSource.Sort(_sortComparer, resort: _resortSubject);
