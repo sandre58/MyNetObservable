@@ -8,6 +8,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
+using DynamicData.Kernel;
 using MyNet.DynamicData.Extensions;
 using MyNet.Observable.Collections.Providers;
 using MyNet.Utilities;
@@ -34,7 +35,7 @@ namespace MyNet.Observable.Collections
             : this(new SourceList<T>(), source.IsReadOnly, scheduler, createWrapper) => AddRange(source);
 
         public ExtendedWrapperCollection(IItemsProvider<T> source, bool loadItems = true, IScheduler? scheduler = null, Func<T, TWrapper>? createWrapper = null)
-            : this(new ItemsSourceProvider<T>(source, loadItems), scheduler) { }
+            : this(new ItemsSourceProvider<T>(source, loadItems), scheduler, createWrapper) { }
 
         public ExtendedWrapperCollection(ISourceProvider<T> source, IScheduler? scheduler = null, Func<T, TWrapper>? createWrapper = null)
             : this(source.Connect(), scheduler, createWrapper) { }
@@ -54,13 +55,15 @@ namespace MyNet.Observable.Collections
         {
             _createWrapper = createWrapper ?? new Func<T, TWrapper>(x => (TWrapper)Activator.CreateInstance(typeof(TWrapper), x)!);
 
+            var observable = ConnectSortedSource();
             Disposables.AddRange(
             [
-                ConnectSortedSource().Transform(GetOrCreate)
-                                     .ObserveOnOptional(scheduler)
-                                     .Bind(out _wrappersSource)
-                                     .DisposeMany()
-                                     .Subscribe(),
+                observable.Transform(GetOrCreate)
+                          .ObserveOnOptional(scheduler)
+                          .Bind(out _wrappersSource)
+                          .DisposeMany()
+                          .Subscribe(),
+                observable.OnItemRemoved(x => _cache.RemoveIfContained(x)).Subscribe(),
                 ConnectSortedAndFilteredSource().Transform(GetOrCreate)
                                                 .ObserveOnOptional(scheduler)
                                                 .Bind(out _wrappers)
