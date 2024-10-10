@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Subjects;
 using DynamicData;
 using DynamicData.Binding;
+using MyNet.DynamicData.Extensions;
 
 namespace MyNet.Observable.Collections.Providers
 {
@@ -13,7 +14,7 @@ namespace MyNet.Observable.Collections.Providers
         where T : notnull
     {
         private bool _disposedValue;
-        private readonly ObservableCollectionExtended<T> _source = [];
+        private readonly ExtendedObservableCollection<T> _source = [];
         private readonly IObservable<IChangeSet<T>> _observable;
         private readonly IDisposable _subjectSubscription;
         private IDisposable? _sourceSubscription;

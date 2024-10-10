@@ -3,16 +3,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using MyNet.Utilities.Collections;
 using MyNet.Utilities.Deferring;
 using PropertyChanged;
 
 namespace MyNet.Observable.Collections.Sorting
 {
-    public class SortingPropertiesCollection : ObservableCollection<SortingProperty>
+    public class SortingPropertiesCollection : OptimizedObservableCollection<SortingProperty>
     {
         private readonly Deferrer _sortChangedDeferrer;
 
@@ -36,10 +36,12 @@ namespace MyNet.Observable.Collections.Sorting
             }
         }
 
-        public void AddRange(IEnumerable<SortingProperty> sort)
+        public new SortingPropertiesCollection AddRange(IEnumerable<SortingProperty> sort)
         {
             using (_sortChangedDeferrer.Defer())
-                sort.ToList().ForEach(Add);
+                base.AddRange(sort);
+
+            return this;
         }
 
         public SortingPropertiesCollection Add(string propertyName, ListSortDirection sortDirection = ListSortDirection.Ascending)
