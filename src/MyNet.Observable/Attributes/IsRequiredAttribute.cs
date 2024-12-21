@@ -10,6 +10,7 @@ namespace MyNet.Observable.Attributes
     /// <summary>
     /// Indicates that the specified property must be validate in same time this property.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public sealed class IsRequiredAttribute : RequiredAttribute
     {
         #region Constructors

@@ -55,7 +55,6 @@ namespace MyNet.Observable.Deferrers
             _runningSubject.OnNext(IsRunning);
             _startActions.SelectMany(x => x.Value).ForEach(x => x.Invoke());
             _disposables = new CompositeDisposable(_subscribers.SelectMany(x => x.Value).Select(x => x.Invoke()).ToList());
-            var stopWatch = Stopwatch.StartNew();
             var continueWithEnd = true;
 
             try
@@ -156,7 +155,6 @@ namespace MyNet.Observable.Deferrers
             _startSubject.OnNext(result());
             _startActions.SelectMany(x => x.Value).ForEach(x => x.Invoke(result()));
             _disposables = new CompositeDisposable(_subscribers.SelectMany(x => x.Value).Select(x => x.Invoke()).ToList());
-            var stopWatch = Stopwatch.StartNew();
             var continueWithEnd = true;
 
             try

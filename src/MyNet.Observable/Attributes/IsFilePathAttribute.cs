@@ -15,7 +15,7 @@ namespace MyNet.Observable.Attributes
 
         public IsFilePathAttribute(bool allowEmpty = true)
         {
-            AllowEmpty = true;
+            AllowEmpty = allowEmpty;
             ErrorMessageResourceName = nameof(ValidationResources.FieldXMustBeAnValidFilePathError);
             ErrorMessageResourceType = typeof(ValidationResources);
         }

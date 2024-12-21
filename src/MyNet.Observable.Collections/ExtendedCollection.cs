@@ -136,7 +136,7 @@ namespace MyNet.Observable.Collections
 
         public void RefreshFilter() => _applyFilterDeferrer.Execute();
 
-        private Func<T, bool> GetFilterFunc(IList<CompositeFilter> filters) => x => filters.Count == 0 || filters.Match(x);
+        private static Func<T, bool> GetFilterFunc(IList<CompositeFilter> filters) => x => filters.Count == 0 || filters.Match(x);
 
         #region INotifyCollectionChanged
 

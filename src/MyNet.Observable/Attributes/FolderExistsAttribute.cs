@@ -15,7 +15,7 @@ namespace MyNet.Observable.Attributes
 
         public FolderExistsAttribute(bool allowEmpty = true)
         {
-            AllowEmpty = true;
+            AllowEmpty = allowEmpty;
             ErrorMessageResourceName = nameof(ValidationResources.FieldXMustContainExistingFolderError);
             ErrorMessageResourceType = typeof(ValidationResources);
         }

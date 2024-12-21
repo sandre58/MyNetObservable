@@ -15,7 +15,7 @@ namespace MyNet.Observable.Attributes
 
         public FileExistsAttribute(bool allowEmpty = true)
         {
-            AllowEmpty = true;
+            AllowEmpty = allowEmpty;
             ErrorMessageResourceName = nameof(ValidationResources.FieldXMustContainsExistingFileError);
             ErrorMessageResourceType = typeof(ValidationResources);
         }
