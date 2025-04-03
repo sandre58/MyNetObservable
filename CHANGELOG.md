@@ -1,5 +1,16 @@
 # Changelog
 
+## [v8.0.0] - 2025-04-03
+### :boom: BREAKING CHANGES
+- due to [`38d1b72`](https://github.com/sandre58/MyNetObservable/commit/38d1b72b5412534646f2e5f251bcd80473ff3c8d) - Add styleCop and fix all warnings:
+
+  Several methods signatures and types names
+
+
+### :recycle: Refactors
+- [`38d1b72`](https://github.com/sandre58/MyNetObservable/commit/38d1b72b5412534646f2e5f251bcd80473ff3c8d) - Add styleCop and fix all warnings
+
+
 ## [v7.0.0] - 2024-12-21
 ### :boom: BREAKING CHANGES
 - due to [`6059b1b`](https://github.com/sandre58/MyNetObservable/commit/6059b1b27682b143a60e183ada4e3953aae2b19d) - Add .NET 9.0 support, update packages, and fix attributes:
@@ -117,3 +128,4 @@
 [v5.1.0]: https://github.com/sandre58/MyNetObservable/compare/v5.0.1...v5.1.0
 [v5.2.0]: https://github.com/sandre58/MyNetObservable/compare/v5.1.0...v5.2.0
 [v7.0.0]: https://github.com/sandre58/MyNetObservable/compare/v6.0.0...v7.0.0
+[v8.0.0]: https://github.com/sandre58/MyNetObservable/compare/v7.0.0...v8.0.0
