@@ -1,5 +1,25 @@
 # Changelog
 
+## [v7.0.0] - 2024-12-21
+### :boom: BREAKING CHANGES
+- due to [`6059b1b`](https://github.com/sandre58/MyNetObservable/commit/6059b1b27682b143a60e183ada4e3953aae2b19d) - Add .NET 9.0 support, update packages, and fix attributes:
+
+  Add .NET 9.0 support
+
+
+### :sparkles: New Features
+- [`8fcf153`](https://github.com/sandre58/MyNetObservable/commit/8fcf15366f2249b3b6bf25bede69c235bf7ceeaf) - add SingleTaskDeferrer
+- [`9de28b9`](https://github.com/sandre58/MyNetObservable/commit/9de28b9f9ab7578267f650a72e07df9b70026f7e) - add Action Runner
+- [`6059b1b`](https://github.com/sandre58/MyNetObservable/commit/6059b1b27682b143a60e183ada4e3953aae2b19d) - Add .NET 9.0 support, update packages, and fix attributes
+
+### :bug: Bug Fixes
+- [`aea2756`](https://github.com/sandre58/MyNetObservable/commit/aea27569f9c0942ecca990109e2eab046b080aad) - remove refresh sort for xtendedCollection
+- [`9d77433`](https://github.com/sandre58/MyNetObservable/commit/9d7743341bede91cda6cd129ecb9209ed8635020) - remove old item from cache in collection
+
+### :recycle: Refactors
+- [`96c0937`](https://github.com/sandre58/MyNetObservable/commit/96c093774356680fac49df82760e2dd5db7194e4) - Optimize collections and update package references
+
+
 ## [v5.2.0] - 2024-07-21
 ### :wrench: Chores
 - [`6b0f5e6`](https://github.com/sandre58/MyNetObservable/commit/6b0f5e656974f81394a7541c824dedb6cb31537f) - update packages *(commit by [@sandre58](https://github.com/sandre58))*
@@ -96,3 +116,4 @@
 [v5.1.0]: https://github.com/sandre58/MyNetObservable/compare/v5.0.1...v5.1.0
 [v5.1.0]: https://github.com/sandre58/MyNetObservable/compare/v5.0.1...v5.1.0
 [v5.2.0]: https://github.com/sandre58/MyNetObservable/compare/v5.1.0...v5.2.0
+[v7.0.0]: https://github.com/sandre58/MyNetObservable/compare/v6.0.0...v7.0.0
