@@ -1,36 +1,31 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IsRequiredAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using MyNet.Observable.Resources;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+/// <summary>
+/// Indicates that the specified property must be validate in same time this property.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public sealed class IsRequiredAttribute : RequiredAttribute
 {
-    /// <summary>
-    /// Indicates that the specified property must be validate in same time this property.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class IsRequiredAttribute : RequiredAttribute
+    public IsRequiredAttribute()
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initialise a new instance of <see cref="IsRequiredAttribute"/>
-        /// </summary>
-        public IsRequiredAttribute()
-        {
-            ErrorMessageResourceName = nameof(ValidationResources.FieldXIsRequiredError);
-            ErrorMessageResourceType = typeof(ValidationResources);
-        }
-
-        #endregion Constructors
-
-        public override bool IsValid(object? value) => value switch
-        {
-            TimeSpan ts when ts == TimeSpan.MinValue || ts == TimeSpan.MaxValue => false,
-            DateTime dt when dt == DateTime.MinValue || dt == DateTime.MaxValue => false,
-            _ => base.IsValid(value)
-        };
+        ErrorMessageResourceName = nameof(ValidationResources.FieldXIsRequiredError);
+        ErrorMessageResourceType = typeof(ValidationResources);
     }
+
+    public override bool IsValid(object? value) => value switch
+    {
+        TimeSpan ts when ts == TimeSpan.MinValue || ts == TimeSpan.MaxValue => false,
+        DateTime dt when dt == DateTime.MinValue || dt == DateTime.MaxValue => false,
+        _ => base.IsValid(value)
+    };
 }

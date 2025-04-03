@@ -1,33 +1,25 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="ExpressionFilter.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.Linq.Expressions;
 using MyNet.Utilities;
 
-namespace MyNet.Observable.Collections.Filters
+namespace MyNet.Observable.Collections.Filters;
+
+public class ExpressionFilter<T, TProperty>(Expression<Func<T, TProperty>> expression, Func<TProperty?, bool> predicate) : IFilter
 {
-    public class ExpressionFilter<T, TProperty> : IFilter
+    public string PropertyName { get; } = expression.GetPropertyName().OrEmpty();
+
+    public bool IsMatch(object? target)
     {
-        private readonly Expression<Func<T, TProperty>> _expression;
-        private readonly Func<TProperty?, bool> _predicate;
+        if (target is not T t) return false;
 
-        public ExpressionFilter(Expression<Func<T, TProperty>> expression, Func<TProperty?, bool> predicate)
-        {
-            _expression = expression;
-            _predicate = predicate;
-            PropertyName = expression.GetPropertyName().OrEmpty();
-        }
+        var func = expression.Compile();
 
-        public string PropertyName { get; }
-
-        public bool IsMatch(object? target)
-        {
-            if (target is not T t) return false;
-
-            var func = _expression.Compile();
-
-            return _predicate.Invoke(func.Invoke(t));
-        }
+        return predicate.Invoke(func.Invoke(t));
     }
 }

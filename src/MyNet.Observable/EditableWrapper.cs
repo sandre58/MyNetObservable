@@ -1,89 +1,91 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="EditableWrapper.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel;
 using MyNet.Utilities;
 
-namespace MyNet.Observable
+namespace MyNet.Observable;
+
+public class EditableWrapper<T>(T item) : EditableObject, ICloneable, ISettable, IIdentifiable<Guid>, IWrapper<T>
 {
-    public class EditableWrapper<T> : EditableObject, ICloneable, ISettable, IIdentifiable<Guid>, IWrapper<T>
+    public Guid Id { get; } = Guid.NewGuid();
+
+    public T Item { get; protected set; } = item;
+
+    protected virtual void OnItemChanged()
     {
-        public Guid Id { get; } = Guid.NewGuid();
-
-        public T Item { get; protected set; }
-
-        public EditableWrapper(T item) => Item = item;
-
-        protected virtual void OnItemChanged()
+        if (Item is INotifyPropertyChanged notifyPropertyChanged)
         {
-            if (Item is INotifyPropertyChanged notifyPropertyChanged)
-            {
-                notifyPropertyChanged.PropertyChanged += Item_PropertyChanged;
-            }
+            notifyPropertyChanged.PropertyChanged += Item_PropertyChanged;
+        }
+    }
+
+    protected virtual void OnItemChanging()
+    {
+        if (Item is INotifyPropertyChanged notifyPropertyChanged)
+        {
+            notifyPropertyChanged.PropertyChanged -= Item_PropertyChanged;
         }
 
-        protected virtual void OnItemChanging()
+        if (Item is IDisposable disposable)
         {
-            if (Item is INotifyPropertyChanged notifyPropertyChanged)
-            {
-                notifyPropertyChanged.PropertyChanged -= Item_PropertyChanged;
-            }
-
-            if (Item is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
+            disposable.Dispose();
         }
+    }
 
-        private void Item_PropertyChanged(object? sender, PropertyChangedEventArgs e) => RaisePropertyChanged(e.PropertyName);
+    private void Item_PropertyChanged(object? sender, PropertyChangedEventArgs e) => OnPropertyChanged(e.PropertyName);
 
-        public virtual object Clone()
+    public virtual object Clone()
+    {
+        var item = Item is ICloneable clonable ? (T)clonable.Clone() : Item;
+        return CreateCloneInstance(item);
+    }
+
+    protected virtual EditableWrapper<T> CreateCloneInstance(T item) => new(item);
+
+    public void SetFrom(object? from)
+    {
+        if (Item is ISettable settable)
         {
-            var item = Item is ICloneable clonable ? (T)clonable.Clone() : Item;
-            return CreateCloneInstance(item);
-        }
-
-        protected virtual EditableWrapper<T> CreateCloneInstance(T item) => new(item);
-
-        public void SetFrom(object? from)
-        {
-            if (Item is ISettable settable)
+            switch (from)
             {
-                if (from is T newItem)
-                {
+                case T newItem:
                     settable.SetFrom(newItem);
-                }
-                else if (from is EditableWrapper<T> newWrapper)
-                {
+                    break;
+                case EditableWrapper<T> newWrapper:
                     settable.SetFrom(newWrapper.Item);
-                }
-            }
-            else
-            {
-                if (from is T newItem)
-                {
-                    Item?.DeepSet(newItem);
-                }
-                else if (from is EditableWrapper<T> newWrapper)
-                {
-                    Item?.DeepSet(newWrapper.Item);
-                }
+                    break;
             }
         }
-
-        public override bool Equals(object? obj) => obj != null && Equals(GetType(), obj.GetType()) && ReferenceEquals(Item, ((EditableWrapper<T>)obj).Item);
-
-        public override int GetHashCode() => Item?.GetHashCode() ?? 0;
-
-        protected override void Cleanup()
+        else
         {
-            if (Item is INotifyPropertyChanged notifyPropertyChanged)
+            switch (from)
             {
-                notifyPropertyChanged.PropertyChanged -= Item_PropertyChanged;
+                case T newItem:
+                    Item?.DeepSet(newItem);
+                    break;
+                case EditableWrapper<T> newWrapper:
+                    Item?.DeepSet(newWrapper.Item);
+                    break;
             }
-
-            base.Cleanup();
         }
+    }
+
+    public override bool Equals(object? obj) => obj != null && GetType() == obj.GetType() && ReferenceEquals(Item, ((EditableWrapper<T>)obj).Item);
+
+    public override int GetHashCode() => Item?.GetHashCode() ?? 0;
+
+    protected override void Cleanup()
+    {
+        if (Item is INotifyPropertyChanged notifyPropertyChanged)
+        {
+            notifyPropertyChanged.PropertyChanged -= Item_PropertyChanged;
+        }
+
+        base.Cleanup();
     }
 }

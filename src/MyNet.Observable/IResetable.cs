@@ -1,12 +1,14 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IResetable.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace MyNet.Observable
+namespace MyNet.Observable;
+
+public interface IResetable<out T>
 {
-    public interface IResetable<out T>
-    {
-        T? DefaultValue { get; }
+    T? DefaultValue { get; }
 
-        void Reset();
-    }
+    void Reset();
 }

@@ -1,12 +1,14 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IProvideValue.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System.ComponentModel;
 
-namespace MyNet.Observable
+namespace MyNet.Observable;
+
+public interface IProvideValue<out T> : INotifyPropertyChanged
 {
-    public interface IProvideValue<out T> : INotifyPropertyChanged
-    {
-        T? Value { get; }
-    }
+    T? Value { get; }
 }

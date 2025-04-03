@@ -1,5 +1,8 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="ItemChangedSourceProvider.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.Collections.ObjectModel;
@@ -8,65 +11,63 @@ using DynamicData;
 using DynamicData.Binding;
 using MyNet.DynamicData.Extensions;
 
-namespace MyNet.Observable.Collections.Providers
+namespace MyNet.Observable.Collections.Providers;
+
+public class ItemChangedSourceProvider<T, TItem> : ISourceProvider<T>, IDisposable
+    where T : notnull
 {
-    public class ItemChangedSourceProvider<T, TItem> : ISourceProvider<T>, IDisposable
-        where T : notnull
+    private readonly ExtendedObservableCollection<T> _source = [];
+    private readonly IObservable<IChangeSet<T>> _observable;
+    private readonly IDisposable _subjectSubscription;
+    private IDisposable? _sourceSubscription;
+    private bool _disposedValue;
+
+    public ItemChangedSourceProvider(Subject<TItem?> subject, Func<TItem, IObservable<IChangeSet<T>>> provideNewObservableSource)
     {
-        private bool _disposedValue;
-        private readonly ExtendedObservableCollection<T> _source = [];
-        private readonly IObservable<IChangeSet<T>> _observable;
-        private readonly IDisposable _subjectSubscription;
-        private IDisposable? _sourceSubscription;
+        Source = new(_source);
+        _observable = Source.ToObservableChangeSet();
 
-        public ItemChangedSourceProvider(Subject<TItem?> subject, Func<TItem, IObservable<IChangeSet<T>>> provideNewObservableSource)
+        _subjectSubscription = subject.Subscribe(x =>
         {
-            Source = new(_source);
-            _observable = Source.ToObservableChangeSet();
+            if (x is not null)
+                SetSource(provideNewObservableSource.Invoke(x));
+            else
+                ClearSource();
+        });
+    }
 
-            _subjectSubscription = subject.Subscribe(x =>
-            {
-                if (x is not null)
-                    SetSource(provideNewObservableSource.Invoke(x));
-                else
-                    ClearSource();
-            });
-        }
+    public ReadOnlyObservableCollection<T> Source { get; }
 
-        public ReadOnlyObservableCollection<T> Source { get; }
+    public IObservable<IChangeSet<T>> Connect() => _observable;
 
-        public IObservable<IChangeSet<T>> Connect() => _observable;
+    private void SetSource(IObservable<IChangeSet<T>> source)
+    {
+        ClearSource();
+        _sourceSubscription = source.Bind(_source).Subscribe();
+    }
 
-        private void SetSource(IObservable<IChangeSet<T>> source)
-        {
-            ClearSource();
-            _sourceSubscription = source.Bind(_source).Subscribe();
-        }
+    protected void ClearSource()
+    {
+        _sourceSubscription?.Dispose();
+        _source.Clear();
+    }
 
-        protected void ClearSource()
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposedValue) return;
+
+        if (disposing)
         {
             _sourceSubscription?.Dispose();
-            _source.Clear();
+            _subjectSubscription.Dispose();
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    _sourceSubscription?.Dispose();
-                    _subjectSubscription.Dispose();
-                }
+        _disposedValue = true;
+    }
 
-                _disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
+    public void Dispose()
+    {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -1,20 +1,16 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="SortingProperty.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System.ComponentModel;
 
-namespace MyNet.Observable.Collections.Sorting
+namespace MyNet.Observable.Collections.Sorting;
+
+public class SortingProperty(string propertyName, ListSortDirection direction = ListSortDirection.Ascending)
 {
-    public class SortingProperty
-    {
-        public SortingProperty(string propertyName, ListSortDirection direction = ListSortDirection.Ascending)
-        {
-            PropertyName = propertyName;
-            Direction = direction;
-        }
+    public string PropertyName { get; } = propertyName;
 
-        public string PropertyName { get; }
-
-        public ListSortDirection Direction { get; }
-    }
+    public ListSortDirection Direction { get; } = direction;
 }

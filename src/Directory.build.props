@@ -1,81 +1,79 @@
 <Project>
-  <!-- Reference: https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2017 -->
-  
-<!-- Informations -->
-  <PropertyGroup>
-    <Product>My .NET Observable</Product>
-    <Authors>Stéphane ANDRE</Authors>
-    <Owners>Stéphane ANDRE</Owners>
-    <Copyright>Copyright © 2016-$([System.DateTime]::Now.ToString(yyyy)) - Stéphane ANDRE. All Rights Reserved.</Copyright>
-    
-    <!-- Used by main project -->
-    <GitVersion>1.0.0-alpha</GitVersion>
+    <!-- Reference: https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2017 -->
 
-    <!-- Used by other projects -->
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>alpha</VersionSuffix>
-  </PropertyGroup>
+    <!-- Informations -->
+    <PropertyGroup>
+        <Product>My .NET Observable</Product>
+        <Authors>Stéphane ANDRE</Authors>
+        <Owners>Stéphane ANDRE</Owners>
+        <Copyright>Copyright © 2016-$([System.DateTime]::Now.ToString(yyyy)) - Stéphane ANDRE. All Rights Reserved.</Copyright>
 
-<!-- Configuration -->
-  <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <BaseOutputPath>bin</BaseOutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <Configurations>Debug;Release</Configurations>
-    <NeutralLanguage>fr</NeutralLanguage>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <Deterministic>False</Deterministic>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)MyNetObservable.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>$(NoWarn);SYSLIB0013;SYSLIB1054;CS1591;CS1574</NoWarn>
-    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
-    <IsTestProject>$(MSBuildProjectName.Contains('UnitTests'))</IsTestProject>
-    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <DeterministicSourcePaths Condition="'$(EnableSourceLink)' == ''">false</DeterministicSourcePaths>
-  </PropertyGroup>
+        <!-- Used by main project -->
+        <GitVersion>1.0.0-alpha</GitVersion>
 
-<!-- Package -->
-  <PropertyGroup>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>True</IncludeSource>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <GeneratePackageOnBuild Condition=" '$(IsTestProject)' != 'true' And '$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/sandre58/MyNetObservable</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryBranch>main</RepositoryBranch>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)..\Artifacts\</PackageOutputPath>
-    <PackageProjectUrl>https://github.com/sandre58/MyNetObservable</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/sandre58/MyNetObservable/releases</PackageReleaseNotes>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageIconUrl>logo.png</PackageIconUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
+        <!-- Used by other projects -->
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="$(IsTestProject)">
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <!-- Code analysis -->
+    <Import Project="$(MSBuildThisFileDirectory)\AnalysisProperties.targets" />
 
-  <ItemGroup Condition="'$(IsTestProject)' != 'true'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-  </ItemGroup>
+    <!-- Configuration -->
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+        <BaseOutputPath>bin</BaseOutputPath>
+        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+        <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+        <Configurations>Debug;Release</Configurations>
+        <NeutralLanguage>fr</NeutralLanguage>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <Deterministic>False</Deterministic>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <IsTestProject>$(MSBuildProjectName.Contains('UnitTests'))</IsTestProject>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <DeterministicSourcePaths Condition="'$(EnableSourceLink)' == ''">false</DeterministicSourcePaths>
+    </PropertyGroup>
 
-  <ItemGroup Condition="'$(IsTestProject)' != 'true'">
-    <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="">
-      <Link>_package/LICENSE</Link>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)..\images\logo.png" Pack="true" PackagePath="">
-      <Link>_package/logo.png</Link>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="">
-      <Link>_package/README.md</Link>
-    </None>
-  </ItemGroup>
+    <!-- Package -->
+    <PropertyGroup>
+        <IsPackable Condition="'$(IsTestProject)' != 'true'">true</IsPackable>
+        <IncludeSymbols>true</IncludeSymbols>
+        <IncludeSource>True</IncludeSource>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <GeneratePackageOnBuild Condition=" '$(IsTestProject)' != 'true' And '$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+        <RepositoryUrl>https://github.com/sandre58/MyNetObservable</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryBranch>main</RepositoryBranch>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)..\Artifacts\</PackageOutputPath>
+        <PackageProjectUrl>https://github.com/sandre58/MyNetObservable</PackageProjectUrl>
+        <PackageReleaseNotes>https://github.com/sandre58/MyNetObservable/releases</PackageReleaseNotes>
+        <PackageIcon>logo.png</PackageIcon>
+        <PackageIconUrl>logo.png</PackageIconUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
+
+    <!-- Source link -->
+    <ItemGroup Condition="'$(IsTestProject)' != 'true'">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <!-- Embedded files -->
+    <ItemGroup Condition="'$(IsTestProject)' != 'true'">
+        <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="">
+            <Link>_package/LICENSE</Link>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)..\images\logo.png" Pack="true" PackagePath="">
+            <Link>_package/logo.png</Link>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="">
+            <Link>_package/README.md</Link>
+        </None>
+    </ItemGroup>
 
 </Project>

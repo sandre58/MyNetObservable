@@ -1,13 +1,15 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="CanSetIsModifiedAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface)]
+public sealed class CanSetIsModifiedAttribute(bool value = true) : Attribute
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface, Inherited = true)]
-    public sealed class CanSetIsModifiedAttribute(bool value = true) : Attribute
-    {
-        public bool Value { get; } = value;
-    }
+    public bool Value { get; } = value;
 }

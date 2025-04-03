@@ -1,43 +1,43 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="CompareToPropertyAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using MyNet.Utilities;
-using MyNet.Utilities.Comparaison;
+using MyNet.Utilities.Comparison;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+/// <summary>
+/// Initialise a new instance of <see cref="ValidatePropertyAttribute"/>.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property |
+                AttributeTargets.Field)]
+public sealed class CompareToPropertyAttribute(string propertyName, ComparableOperator @operator) : ValidationAttribute
 {
     /// <summary>
-    /// Initialise a new instance of <see cref="ValidatePropertyAttribute"/>
+    /// Gets property name.
     /// </summary>
-    /// <param name="propertyName"></param>
-    /// <param name="sign"></param>
-    [AttributeUsage(AttributeTargets.Property |
-                    AttributeTargets.Field)]
-    public sealed class CompareToPropertyAttribute(string propertyName, ComparableOperator sign) : ValidationAttribute
+    public string PropertyName { get; } = propertyName;
+
+    /// <summary>
+    /// Gets property name.
+    /// </summary>
+    public ComparableOperator Operator { get; } = @operator;
+
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        /// <summary>
-        /// Gets property name.
-        /// </summary>
-        public string PropertyName { get; } = propertyName;
+        var property = validationContext.ObjectType.GetProperty(PropertyName);
 
-        /// <summary>
-        /// Gets property name.
-        /// </summary>
-        public ComparableOperator Operator { get; } = sign;
-
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
-        {
-            var property = validationContext.ObjectType.GetProperty(PropertyName);
-
-            return property == null
-                ? null
-                : property.GetValue(validationContext.ObjectInstance) is not IComparable otherValue || value is not IComparable firstValue
-                ? null
-                : !firstValue.Compare(otherValue, Operator)
-                ? new ValidationResult(FormatErrorMessage(ErrorMessage ?? string.Empty))
-                : null;
-        }
+        return property == null
+            ? null
+            : property.GetValue(validationContext.ObjectInstance) is not IComparable otherValue || value is not IComparable firstValue
+            ? null
+            : !firstValue.Compare(otherValue, Operator)
+            ? new ValidationResult(FormatErrorMessage(ErrorMessage ?? string.Empty))
+            : null;
     }
 }

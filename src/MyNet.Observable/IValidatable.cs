@@ -1,17 +1,19 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IValidatable.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System.Collections.Generic;
 using MyNet.Observable.Validation;
 
-namespace MyNet.Observable
+namespace MyNet.Observable;
+
+public interface IValidatable
 {
-    public interface IValidatable
-    {
-        ValidationRuleCollection ValidationRules { get; }
+    ValidationRuleCollection ValidationRules { get; }
 
-        bool ValidateProperties();
+    bool ValidateProperties();
 
-        IEnumerable<string> GetErrors();
-    }
+    IEnumerable<string> GetValidationErrors();
 }

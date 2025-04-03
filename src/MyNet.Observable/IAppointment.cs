@@ -1,15 +1,17 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IAppointment.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel;
 
-namespace MyNet.Observable
-{
-    public interface IAppointment : INotifyPropertyChanged
-    {
-        DateTime StartDate { get; }
+namespace MyNet.Observable;
 
-        DateTime EndDate { get; }
-    }
+public interface IAppointment : INotifyPropertyChanged
+{
+    DateTime StartDate { get; }
+
+    DateTime EndDate { get; }
 }

@@ -1,16 +1,18 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IValidationRule.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace MyNet.Observable.Validation
+namespace MyNet.Observable.Validation;
+
+public interface IValidationRule
 {
-    public interface IValidationRule
-    {
-        string? PropertyName { get; }
+    string? PropertyName { get; }
 
-        string Error { get; }
+    string Error { get; }
 
-        ValidationRuleSeverity Severity { get; }
+    ValidationRuleSeverity Severity { get; }
 
-        bool Apply<T>(T item);
-    }
+    bool Apply<T>(T item);
 }

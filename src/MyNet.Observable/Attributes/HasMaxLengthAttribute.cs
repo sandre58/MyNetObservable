@@ -1,29 +1,25 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="HasMaxLengthAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using MyNet.Observable.Resources;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+/// <summary>
+/// Indicates that the specified property must be validate in same time this property.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public sealed class HasMaxLengthAttribute : MaxLengthAttribute
 {
-    /// <summary>
-    /// Indicates that the specified property must be validate in same time this property.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class HasMaxLengthAttribute : MaxLengthAttribute
+    public HasMaxLengthAttribute(int length)
+        : base(length)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initialise a new instance of <see cref="HasMaxLengthAttribute"/>
-        /// </summary>
-        public HasMaxLengthAttribute(int length) : base(length)
-        {
-            ErrorMessageResourceName = nameof(ValidationResources.FieldXMustHaveMaxLengthYError);
-            ErrorMessageResourceType = typeof(ValidationResources);
-        }
-
-        #endregion Constructors
+        ErrorMessageResourceName = nameof(ValidationResources.FieldXMustHaveMaxLengthYError);
+        ErrorMessageResourceType = typeof(ValidationResources);
     }
 }

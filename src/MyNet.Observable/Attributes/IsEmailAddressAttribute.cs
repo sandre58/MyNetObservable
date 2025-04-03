@@ -1,28 +1,30 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IsEmailAddressAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using MyNet.Observable.Resources;
-using MyNet.Utilities.Extensions;
+using MyNet.Utilities;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
+public sealed class IsEmailAddressAttribute : DataTypeAttribute
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class IsEmailAddressAttribute : DataTypeAttribute
+    public IsEmailAddressAttribute(bool allowEmptyValue = false)
+        : base(DataType.EmailAddress)
     {
-        private readonly bool _allowEmptyValue;
+        AllowEmptyValue = allowEmptyValue;
 
-        public IsEmailAddressAttribute(bool allowEmptyValue = false)
-            : base(DataType.EmailAddress)
-        {
-            _allowEmptyValue = allowEmptyValue;
-
-            ErrorMessageResourceName = nameof(ValidationResources.FieldXMustBeValidEmailAddressError);
-            ErrorMessageResourceType = typeof(ValidationResources);
-        }
-
-        public override bool IsValid(object? value)
-            => value == null || _allowEmptyValue && string.IsNullOrEmpty(value.ToString()) || (value.ToString()?.IsEmailAddress() ?? false);
+        ErrorMessageResourceName = nameof(ValidationResources.FieldXMustBeValidEmailAddressError);
+        ErrorMessageResourceType = typeof(ValidationResources);
     }
+
+    public bool AllowEmptyValue { get; }
+
+    public override bool IsValid(object? value)
+        => value == null || (AllowEmptyValue && string.IsNullOrEmpty(value.ToString())) || (value.ToString()?.IsEmailAddress() ?? false);
 }

@@ -1,12 +1,14 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IFilter.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace MyNet.Observable.Collections.Filters
+namespace MyNet.Observable.Collections.Filters;
+
+public interface IFilter
 {
-    public interface IFilter
-    {
-        string PropertyName { get; }
+    string PropertyName { get; }
 
-        bool IsMatch(object? target);
-    }
+    bool IsMatch(object? target);
 }

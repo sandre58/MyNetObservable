@@ -1,14 +1,16 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="ValidationRuleSeverity.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace MyNet.Observable.Validation
+namespace MyNet.Observable.Validation;
+
+public enum ValidationRuleSeverity
 {
-    public enum ValidationRuleSeverity
-    {
-        Error,
+    Error,
 
-        Warning,
+    Warning,
 
-        Information
-    }
+    Information
 }

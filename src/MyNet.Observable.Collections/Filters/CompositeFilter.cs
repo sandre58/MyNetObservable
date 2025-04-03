@@ -1,20 +1,16 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="CompositeFilter.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
-using MyNet.Utilities.Comparaison;
+using MyNet.Utilities.Comparison;
 
-namespace MyNet.Observable.Collections.Filters
+namespace MyNet.Observable.Collections.Filters;
+
+public class CompositeFilter(IFilter filter, LogicalOperator @operator = LogicalOperator.And)
 {
-    public class CompositeFilter
-    {
-        public CompositeFilter(IFilter filter, LogicalOperator @operator = LogicalOperator.And)
-        {
-            Operator = @operator;
-            Filter = filter;
-        }
+    public LogicalOperator Operator { get; } = @operator;
 
-        public LogicalOperator Operator { get; }
-
-        public IFilter Filter { get; }
-    }
+    public IFilter Filter { get; } = filter;
 }

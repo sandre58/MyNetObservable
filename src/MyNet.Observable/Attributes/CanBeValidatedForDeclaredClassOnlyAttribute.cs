@@ -1,13 +1,15 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="CanBeValidatedForDeclaredClassOnlyAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 
-namespace MyNet.Observable.Attributes
+namespace MyNet.Observable.Attributes;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = false)]
+public sealed class CanBeValidatedForDeclaredClassOnlyAttribute(bool value = true) : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = false)]
-    public sealed class CanBeValidatedForDeclaredClassOnlyAttribute(bool value = true) : Attribute
-    {
-        public bool Value { get; } = value;
-    }
+    public bool Value { get; } = value;
 }

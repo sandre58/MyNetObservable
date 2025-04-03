@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="6.9.1">
+    <PackageReference Include="Fody" Version="6.9.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="DynamicData" Version="9.0.4" />
-    <PackageReference Include="MyNet.DynamicData.Extensions" Version="3.0.0" />
-    <PackageReference Include="MyNet.Utilities" Version="6.0.0" />
+    <PackageReference Include="DynamicData" Version="9.2.1" />
+    <PackageReference Include="MyNet.DynamicData.Extensions" Version="4.0.0" />
+    <PackageReference Include="MyNet.Utilities" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,18 +1,16 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="PredicateFilter.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 
-namespace MyNet.Observable.Collections.Filters
+namespace MyNet.Observable.Collections.Filters;
+
+public sealed class PredicateFilter<T>(Func<T?, bool> predicate) : IFilter
 {
-    public class PredicateFilter<T> : IFilter
-    {
-        private readonly Func<T?, bool> _predicate;
+    string IFilter.PropertyName => string.Empty;
 
-        public PredicateFilter(Func<T?, bool> predicate) => _predicate = predicate;
-
-        string IFilter.PropertyName => string.Empty;
-
-        public bool IsMatch(object? target) => _predicate.Invoke((T?)target);
-    }
+    public bool IsMatch(object? target) => predicate.Invoke((T?)target);
 }

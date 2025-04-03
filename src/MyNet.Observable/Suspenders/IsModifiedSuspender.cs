@@ -1,12 +1,14 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="IsModifiedSuspender.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using MyNet.Utilities.Suspending;
 
-namespace MyNet.Observable.Suspenders
+namespace MyNet.Observable.Suspenders;
+
+public static class IsModifiedSuspender
 {
-    public static class IsModifiedSuspender
-    {
-        public static Suspender Default { get; } = new();
-    }
+    public static Suspender Default { get; } = new();
 }

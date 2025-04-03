@@ -1,12 +1,12 @@
-﻿// Copyright (c) Stéphane ANDRE. All Right Reserved.
-// See the LICENSE file in the project root for more information.
+﻿// -----------------------------------------------------------------------
+// <copyright file="UpdateOnCultureChangedAttribute.cs" company="Stéphane ANDRE">
+// Copyright (c) Stéphane ANDRE. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 
 using System;
 
-namespace MyNet.Observable.Attributes
-{
-    [AttributeUsage(AttributeTargets.Property, Inherited = false)]
-    public sealed class UpdateOnCultureChangedAttribute : Attribute
-    {
-    }
-}
+namespace MyNet.Observable.Attributes;
+
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class UpdateOnCultureChangedAttribute : Attribute;
